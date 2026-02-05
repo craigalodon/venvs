@@ -90,7 +90,3 @@ Provides a conda-like convenience layer with explicit, versioned dependency spec
 - Consider adding a script to list profiles and Python versions.
 - Optional: pre-build commonly used kernels.
 - Optional: CI check to ensure `uv.lock` matches `pyproject.toml`.
-
----
-
-Questions or improvements welcome—open an issue or PR.
