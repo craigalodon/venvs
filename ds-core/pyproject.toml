@@ -12,5 +12,6 @@ dependencies = [
     "pyarrow>=22.0.0",
     "scipy>=1.16.3",
     "seaborn>=0.13.2",
+    "sqlalchemy>=2.0.48",
     "xlsxwriter>=3.2.9",
 ]
