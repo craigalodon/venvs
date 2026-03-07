@@ -1,6 +1,8 @@
 # venvs: Reusable Python Environment Profiles
 
-Fast, reproducible Python environments for analytics and exploratory notebook work without per-project bootstrapping or conda. Each profile is defined declaratively (no committed virtualenvs) to keep setup lightweight and repeatable.
+Fast, reproducible Python environments for analytics and exploratory notebook work
+without per-project bootstrapping or conda. Each profile is defined declaratively
+(no committed virtualenvs) to keep setup lightweight and repeatable.
 
 ## Overview
 
@@ -52,7 +54,8 @@ python -m ipykernel install \
   --display-name "Python (ds-core)"
 ```
 
-Repeat for additional profiles; then select the kernel in JupyterLab, VS Code, or any notebook UI.
+Repeat for additional profiles; then select the kernel in JupyterLab, VS Code, or
+any notebook UI.
 
 ## Ad Hoc Notebook Workflow
 
@@ -77,13 +80,16 @@ Repeat for additional profiles; then select the kernel in JupyterLab, VS Code, o
 ## Conventions
 
 - `.venv/` directories are intentionally untracked.
-- Do not pip install ad hoc packages into a shared profile; add them to `pyproject.toml` and regenerate.
+- Do not pip install ad hoc packages into a shared profile; add them to `pyproject.toml`
+  and regenerate.
 - Keep the profile set minimal to reduce overlap and drift.
 - Lockfiles can be platform-sensitive; validate on macOS and Linux if needed.
 
 ## Rationale
 
-Provides a conda-like convenience layer with explicit, versioned dependency specifications. Avoids committing full environments while ensuring fast, reproducible setup for exploratory analytics and notebook-driven tasks.
+Provides a conda-like convenience layer with explicit, versioned dependency specifications.
+Avoids committing full environments while ensuring fast, reproducible setup for exploratory
+analytics and notebook-driven tasks.
 
 ## Notes / Future Enhancements
 
