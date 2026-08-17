@@ -14,6 +14,6 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "scipy>=1.18.0",
     "seaborn>=0.13.2",
-    "sqlalchemy>=2.0.51",
+    "sqlalchemy>=2.0.52",
     "xlsxwriter>=3.2.9",
 ]
