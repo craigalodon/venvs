@@ -91,8 +91,24 @@ Provides a conda-like convenience layer with explicit, versioned dependency
 specifications. Avoids committing full environments while ensuring fast,
 reproducible setup for exploratory analytics and notebook-driven tasks.
 
+## CI & Pre-commit
+
+GitHub Actions runs on every push to `main` and on pull requests
+(`.github/workflows/ci.yml`):
+
+- Repository hygiene checks (large files, merge conflicts, TOML/YAML
+  validity, trailing whitespace, end-of-file newlines) and Markdown linting.
+- A build check per profile directory that runs `uv sync --locked` to verify
+  `uv.lock` matches `pyproject.toml`.
+
+The same hygiene and Markdown checks run locally via
+[pre-commit](https://pre-commit.com):
+
+```bash
+uvx pre-commit install
+```
+
 ## Notes / Future Enhancements
 
 - Consider adding a script to list profiles and Python versions.
 - Optional: pre-build commonly used kernels.
-- Optional: CI check to ensure `uv.lock` matches `pyproject.toml`.
