@@ -61,21 +61,21 @@ any notebook UI.
 
 1. Launch notebooks from any working directory:
 
-  ```bash
-  jupyter lab
-  ```
+   ```bash
+   jupyter lab
+   ```
 
 1. Pick a shared kernel (e.g. `Python (ds-core)`).
 1. Explore / iterate.
 1. If the work becomes a project, vendor the environment spec:
 
-  ```bash
-  cp ../venvs/ds-core/pyproject.toml .
-  cp ../venvs/ds-core/uv.lock .
-  uv sync
-  ```
+   ```bash
+   cp ../venvs/ds-core/pyproject.toml .
+   cp ../venvs/ds-core/uv.lock .
+   uv sync
+   ```
 
-  Use the project-local `.venv/` going forward.
+   Use the project-local `.venv/` going forward.
 
 ## Conventions
 
@@ -87,9 +87,9 @@ any notebook UI.
 
 ## Rationale
 
-Provides a conda-like convenience layer with explicit, versioned dependency specifications.
-Avoids committing full environments while ensuring fast, reproducible setup for exploratory
-analytics and notebook-driven tasks.
+Provides a conda-like convenience layer with explicit, versioned dependency
+specifications. Avoids committing full environments while ensuring fast,
+reproducible setup for exploratory analytics and notebook-driven tasks.
 
 ## Notes / Future Enhancements
 
