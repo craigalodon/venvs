@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    name: Discover profiles
+    runs-on: ubuntu-latest
+    outputs:
+      profiles: ${{ steps.find.outputs.profiles }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Find profile directories
+        id: find
+        run: |
+          profiles=$(find . -mindepth 2 -maxdepth 2 -name pyproject.toml -printf '%h\n' \
+            | sed 's|^\./||' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "profiles=$profiles" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build (${{ matrix.profile }})
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        profile: ${{ fromJson(needs.discover.outputs.profiles) }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.0.1
+        with:
+          enable-cache: true
+
+      - name: Sync environment (verifies uv.lock matches pyproject.toml)
+        working-directory: ${{ matrix.profile }}
+        run: uv sync --locked
+
+  checks:
+    name: Repository checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.0.1
+        with:
+          enable-cache: true
+
+      - name: Check repository files
+        shell: bash
+        run: |
+          git ls-files -z | xargs -0 uvx --from pre-commit-hooks==6.0.0 check-added-large-files
+          git ls-files -z | xargs -0 uvx --from pre-commit-hooks==6.0.0 check-merge-conflict
+          git ls-files -z '*.toml' | xargs -0 --no-run-if-empty uvx --from pre-commit-hooks==6.0.0 check-toml
+          git ls-files -z '*.yaml' '*.yml' | xargs -0 --no-run-if-empty uvx --from pre-commit-hooks==6.0.0 check-yaml
+          git ls-files -z | xargs -0 uvx --from pre-commit-hooks==6.0.0 end-of-file-fixer
+          git ls-files -z | xargs -0 uvx --from pre-commit-hooks==6.0.0 trailing-whitespace-fixer
+          git diff --exit-code
+
+      - name: Check Markdown
+        run: uvx --from rumdl==0.2.57 rumdl check .
