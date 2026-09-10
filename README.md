@@ -112,3 +112,12 @@ uvx pre-commit install
 
 - Consider adding a script to list profiles and Python versions.
 - Optional: pre-build commonly used kernels.
+
+## Contributing
+
+This is a personal project and contributions aren't expected, but see
+[CONTRIBUTING.md](CONTRIBUTING.md) if you'd like to propose a change.
+
+## License
+
+[MIT](LICENSE)
