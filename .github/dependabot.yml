@@ -9,3 +9,9 @@ updates:
     directory: "/ds-core" # Location of package manifests
     schedule:
       interval: "weekly"
+
+  # GitHub Actions used in .github/workflows/*.yml
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
